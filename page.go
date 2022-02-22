@@ -1,10 +1,10 @@
 package tweb
 
 import (
+	"github.com/T0XICAK3/tweb/utils"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"log"
-	"tweb/utils"
 )
 
 type Page struct {

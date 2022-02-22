@@ -1,11 +1,11 @@
 package tweb
 
 import (
+	"github.com/T0XICAK3/tweb/utils"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 	"net/http"
-	"tweb/utils"
 )
 
 type ToxicWeb struct {
