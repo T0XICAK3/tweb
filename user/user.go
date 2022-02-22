@@ -55,7 +55,7 @@ func (ppt *intProperty) Value() int {
 	return ppt.value
 }
 
-//----------------------------------
+//-----------------------------------
 
 type switchProperty struct {
 	property
