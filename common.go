@@ -1,4 +1,4 @@
-package web
+package tweb
 
 import (
 	"github.com/gin-contrib/sessions"
