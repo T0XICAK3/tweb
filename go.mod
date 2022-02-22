@@ -1,4 +1,4 @@
-module tweb
+module github.com/T0XICAK3/tweb
 
 go 1.18
 
