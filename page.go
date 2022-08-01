@@ -64,7 +64,7 @@ func NewPage(statusCode int, templ string, data gin.H, c *gin.Context) *Page {
 
 func errorPage(c *gin.Context) {
 	defer func() {
-		if err := recover(); err != any(nil) {
+		if err := recover(); err != nil {
 			log.Printf("panic: %v\n", err)
 			//debug.PrintStack()
 			c.HTML(500, "500.html", gin.H{
@@ -77,7 +77,7 @@ func errorPage(c *gin.Context) {
 
 func defaultErrorPage(c *gin.Context) {
 	defer func() {
-		if err := recover(); err != any(nil) {
+		if err := recover(); err != nil {
 			//打印错误堆栈信息
 			log.Printf("panic: %v\n", err)
 			//debug.PrintStack()
