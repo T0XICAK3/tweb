@@ -15,17 +15,12 @@ type ToxicWeb struct {
 	store      cookie.Store
 }
 
-func (tw *ToxicWeb) Start(address string, debug bool) {
+func (tw *ToxicWeb) Start(address string) {
 	for path, function := range tw.getRouter {
 		tw.engine.GET(path, function)
 	}
 	for path, function := range tw.postRouter {
 		tw.engine.POST(path, function)
-	}
-	if debug {
-		gin.SetMode(gin.DebugMode)
-	} else {
-		gin.SetMode(gin.ReleaseMode)
 	}
 	err := tw.engine.Run(address) //:8080
 	if err != nil {
@@ -34,7 +29,12 @@ func (tw *ToxicWeb) Start(address string, debug bool) {
 	} // 监听并在 0.0.0.0:8080 上启动服务
 }
 
-func NewToxicWeb(getRouter, postRouter map[string]func(*gin.Context), secret, sessionName, staticPath string) *ToxicWeb {
+func NewToxicWeb(getRouter, postRouter map[string]func(*gin.Context), secret, sessionName, staticPath string, debug bool) *ToxicWeb {
+	if debug {
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	if _, ok := getRouter["/"]; !ok {
 		getRouter["/"] = func(c *gin.Context) {
 			c.Header("Content-Type", "text/html; charset=utf-8")
