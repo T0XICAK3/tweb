@@ -3,7 +3,6 @@ package utils
 import (
 	"bufio"
 	"fmt"
-	"github.com/nsf/termbox-go"
 	"os"
 	path2 "path"
 	"regexp"
@@ -155,21 +154,6 @@ func FillEcho(word string, color Color, sp Mode) {
 	ColorStrResolve(word, colorStr)
 }
 
-func MiddleOut(word string, color Color, sp Mode) {
-	length, _ := TerminalSize()
-	if len(word) > length {
-		word = word[0:length]
-	}
-	padding := ""
-	for i := 0; i < (length-len(word))/2; i++ {
-		padding += " "
-	}
-	word = padding + word
-	word += padding
-	colorStr := Itoa(len(word)) + "[" + Itoa(int(color)+30) + ",0," + Itoa(int(sp)) + "]"
-	ColorStrResolve(word+"\n", colorStr)
-}
-
 func RangeExtend(str string) []string {
 	commonStr, right := Divide(str, "[")
 	if right == "" {
@@ -204,17 +188,7 @@ func Time2Exit(second int, color Color) {
 	}
 	os.Exit(0)
 }
-func AnyKeyExit() {
-	fmt.Printf("Press any key to exit...")
-	loop := true
-	for loop {
-		switch ev := termbox.PollEvent(); ev.Type {
-		case termbox.EventKey:
-			loop = false
-		}
-	}
-	os.Exit(0)
-}
+
 func GetNameFromPath(path string, suffix string) string {
 	_, fileName := path2.Split(strings.ReplaceAll(path, "\\", "/"))
 	fileName, _ = Divide(fileName, suffix)
@@ -228,14 +202,13 @@ func DebugOut(identity, word string, leftColor, rightColor Color, Debug_Level in
 func Echo(word string, color Color) {
 	ConsoleOut("", word, SPACE, color)
 }
-func TerminalSize() (int, int) {
-	w, h := termbox.Size()
-	return w, h
-}
+
 func init() {
-	if err := termbox.Init(); err != nil {
-		Echo("TERM_BOX_INIT_ERROR", Red)
-		os.Exit(0)
-	}
-	//defer termbox.Close()
+	/*
+		if err := termbox.Init(); err != nil {
+			Echo("TERM_BOX_INIT_ERROR", Red)
+			os.Exit(0)
+		}
+
+	*/
 }

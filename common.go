@@ -15,12 +15,17 @@ type ToxicWeb struct {
 	store      cookie.Store
 }
 
-func (tw *ToxicWeb) Start(address string) {
+func (tw *ToxicWeb) Start(address string, debug bool) {
 	for path, function := range tw.getRouter {
 		tw.engine.GET(path, function)
 	}
 	for path, function := range tw.postRouter {
 		tw.engine.POST(path, function)
+	}
+	if debug {
+		gin.SetMode(gin.DebugMode)
+	} else {
+		gin.SetMode(gin.ReleaseMode)
 	}
 	err := tw.engine.Run(address) //:8080
 	if err != nil {
