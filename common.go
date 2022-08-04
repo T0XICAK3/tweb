@@ -24,7 +24,7 @@ func (tw *ToxicWeb) Start(address string) {
 	}
 	err := tw.engine.Run(address) //:8080
 	if err != nil {
-		utils.ConsoleOut("TOXIC_WEB_RUN_ERR", err.Error(), utils.Red, utils.White+1)
+		utils.ConsoleOut("WEB_RUN_ERR", err.Error(), utils.Red, utils.White+1)
 		return
 	} // 监听并在 0.0.0.0:8080 上启动服务
 }
