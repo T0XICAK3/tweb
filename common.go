@@ -5,7 +5,6 @@ import (
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	"net/http"
 )
 
 type ToxicWeb struct {
@@ -53,11 +52,14 @@ func NewToxicWeb(getRouter, postRouter map[string]func(*gin.Context), secret, se
 	//vw.engine.LoadHTMLFiles("static/index.html")
 	if ok, _ := utils.PathExists(staticPath + "/html"); ok {
 		tw.engine.LoadHTMLGlob(staticPath + "/html/*")
-	} else if ok, _ := utils.PathExists(staticPath + "/css"); ok {
+	}
+	if ok, _ := utils.PathExists(staticPath + "/css"); ok {
 		tw.engine.Static("/css", staticPath+"/css")
-	} else if ok, _ := utils.PathExists(staticPath + "/css"); ok {
+	}
+	if ok, _ := utils.PathExists(staticPath + "/js"); ok {
 		tw.engine.Static("/js", staticPath+"/js")
-	} else if ok, _ := utils.PathExists(staticPath + "/favicon.ico"); ok {
+	}
+	if ok, _ := utils.PathExists(staticPath + "/favicon.ico"); ok {
 		tw.engine.StaticFile("favicon.ico", staticPath+"/favicon.ico")
 	}
 	if ok, _ := utils.PathExists(staticPath + "/html/500.html"); ok {
@@ -67,7 +69,7 @@ func NewToxicWeb(getRouter, postRouter map[string]func(*gin.Context), secret, se
 	}
 	if ok, _ := utils.PathExists(staticPath + "/html/404.html"); ok {
 		tw.engine.NoRoute(func(c *gin.Context) {
-			c.HTML(http.StatusOK, "404.html", gin.H{
+			c.HTML(404, "404.html", gin.H{
 				"title": "404",
 			})
 		})
